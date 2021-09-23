@@ -40,9 +40,8 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   } else if (amount === '' || +amount <= 0 || !Number.isInteger(+amount)) {
     return `Параметр "Общая стоимость" содержит неправильное значение "${amount}"`;
   } else if (
-    +date <= 0 ||
-    !Number.isInteger(Date.parse(date)) ||
-    Date.parse(date) <= dateMinAllow.getTime()
+    (typeof date !== 'object' && !('getTime' in date)) ||
+    date.getTime() <= dateMinAllow.getTime()
   ) {
     return `Параметр "Срок ипотеки" должен быть больше месяца`;
   } else {
