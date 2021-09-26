@@ -56,5 +56,24 @@ function makeWork(arrOfArr, func) {
 
 // Задание 3
 function worker2(arr) {
-  // Ваш код
+  let sum;
+
+  if (arr.length) {
+    min = arr[0];
+    max = arr[0];
+
+    for (let i = 0; i < arr.length; i++) {
+      min = min < arr[i] ? min : arr[i];
+      max = max > arr[i] ? max : arr[i];
+    }
+
+    sum =
+      min < 0 && max > 0
+        ? Math.abs(min) + max
+        : min < 0 && max < 0
+        ? Math.abs(min) - Math.abs(max)
+        : max - min;
+  }
+
+  return sum;
 }
