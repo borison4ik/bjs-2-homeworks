@@ -29,7 +29,13 @@ function getArrayParams(arr) {
 function worker(arr) {
   let sum;
 
-  // Ваш код
+  if (arr.length) {
+    sum = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+      sum += arr[i];
+    }
+  }
 
   return sum;
 }
@@ -37,8 +43,13 @@ function worker(arr) {
 function makeWork(arrOfArr, func) {
   let max;
 
-  // Ваш кода
-  // for ...
+  if (arrOfArr.length) {
+    max = arrOfArr[0];
+
+    for (let i = 0; i < arrOfArr.length; i++) {
+      max = max > func(arrOfArr[i]) ? max : func(arrOfArr[i]);
+    }
+  }
 
   return max;
 }
