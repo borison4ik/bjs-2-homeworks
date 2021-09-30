@@ -67,12 +67,14 @@ function worker2(arr) {
       max = max > arr[i] ? max : arr[i];
     }
 
-    sum =
-      min < 0 && max > 0
-        ? Math.abs(min) + max
-        : min < 0 && max < 0
-        ? Math.abs(min) - Math.abs(max)
-        : max - min;
+    // sum =
+    //   min < 0 && max > 0
+    //     ? Math.abs(min) + max
+    //     : min < 0 && max < 0
+    //     ? Math.abs(min) - Math.abs(max)
+    //     : max - min;
+
+    sum = Math.abs(max - min);
   }
 
   return sum;
