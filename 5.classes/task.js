@@ -95,6 +95,7 @@ class Student {
     } else if (findObj) {
       findObj.marks.push(rating);
     }
+    return true;
   }
 
   addMarks(ratings, subjectName) {
@@ -112,6 +113,7 @@ class Student {
     } else if (findObj) {
       findObj.marks.push(...ratings);
     }
+    return true;
   }
 
   getAverageBySubject(subjectName) {
@@ -131,5 +133,13 @@ class Student {
         return (acc += this.getAverageBySubject(item.subject));
       }, 0) / this.ratingJournal.length
     );
+  }
+
+  exclude(reason) {
+    if (!this._exclude) {
+      throw new Error(`Студент уже отчислен. Причина ${this._exclude}`);
+    }
+    this._exclude = reason;
+    return true;
   }
 }
