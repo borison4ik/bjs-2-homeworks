@@ -72,3 +72,64 @@ class Library {
     return bookIndex < 0 ? null : this.books.splice(bookIndex, 1)[0];
   }
 }
+
+// Задание №3
+class Student {
+  constructor(name = 'noName', gender = 'male', age = 18) {
+    this.name = name;
+    this.gender = gender;
+    this.age = age;
+    this.ratingJournal = [];
+  }
+
+  addMark(rating, subjectName) {
+    let findObj = this.ratingJournal.find((item) => item.subject === subjectName);
+    rating = parseInt(rating, 10);
+
+    if (isNaN(rating) || rating < 1 || rating > 5) {
+      return new Error('Ошибка, оценка должна быть числом от 1 до 5');
+    }
+
+    if (!this.ratingJournal.length || !findObj) {
+      this.ratingJournal.push({ marks: [rating], subject: subjectName });
+    } else if (findObj) {
+      findObj.marks.push(rating);
+    }
+  }
+
+  addMarks(ratings, subjectName) {
+    let findObj = this.ratingJournal.find((item) => item.subject === subjectName);
+    let isValid =
+      Array.isArray(ratings) &&
+      !ratings.find((item) => isNaN(parseInt(item)) || item < 1 || item > 5);
+
+    if (!isValid) {
+      return new Error('Ошибка, оценки в массиве должны быть числом от 1 до 5');
+    }
+
+    if (!this.ratingJournal.length || !findObj) {
+      this.ratingJournal.push({ marks: [...ratings], subject: subjectName });
+    } else if (findObj) {
+      findObj.marks.push(...ratings);
+    }
+  }
+
+  getAverageBySubject(subjectName) {
+    let findObj = this.ratingJournal.find((item) => item.subject === subjectName);
+    if (!findObj) {
+      return new Error(`Несуществующий предмет ${subjectName}`);
+    }
+    return findObj.marks.reduce((acc, item) => (acc += item)) / findObj.marks.length;
+  }
+
+  getAverage() {
+    if (!this.ratingJournal.length) {
+      return new Error('Вы еще не изучаете ни один предмет');
+    }
+    return (
+      this.ratingJournal.reduce((acc, item) => {
+        return (acc += this.getAverageBySubject(item.subject));
+      }, 0) / this.ratingJournal.length
+    );
+  }
+}
