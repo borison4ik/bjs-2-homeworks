@@ -87,7 +87,8 @@ class Student {
     rating = parseInt(rating, 10);
 
     if (isNaN(rating) || rating < 1 || rating > 5) {
-      throw new Error('Ошибка, оценка должна быть числом от 1 до 5');
+      console.error('Ошибка, оценка должна быть числом от 1 до 5');
+      return false;
     }
 
     if (!this.ratingJournal.length || !findObj) {
@@ -102,10 +103,11 @@ class Student {
     let findObj = this.ratingJournal.find((item) => item.subject === subjectName);
     let isValid =
       Array.isArray(ratings) &&
-      !ratings.find((item) => isNaN(parseInt(item)) || item < 1 || item > 5);
+      !ratings.some((item) => isNaN(parseInt(item)) || item < 1 || item > 5);
 
     if (!isValid) {
-      throw new Error('Ошибка, оценки в массиве должны быть числом от 1 до 5');
+      console.error('Ошибка, оценки в массиве должны быть числом от 1 до 5');
+      return false;
     }
 
     if (!this.ratingJournal.length || !findObj) {
@@ -119,14 +121,16 @@ class Student {
   getAverageBySubject(subjectName) {
     let findObj = this.ratingJournal.find((item) => item.subject === subjectName);
     if (!findObj) {
-      throw new Error(`Несуществующий предмет ${subjectName}`);
+      console.error(`Несуществующий предмет ${subjectName}`);
+      return false;
     }
     return findObj.marks.reduce((acc, item) => (acc += item)) / findObj.marks.length;
   }
 
   getAverage() {
     if (!this.ratingJournal.length) {
-      throw new Error('Вы еще не изучаете ни один предмет');
+      console.error('Вы еще не изучаете ни один предмет');
+      return false;
     }
     return (
       this.ratingJournal.reduce((acc, item) => {
@@ -137,7 +141,8 @@ class Student {
 
   exclude(reason) {
     if (!this._exclude) {
-      throw new Error(`Студент уже отчислен. Причина ${this._exclude}`);
+      console.error(`Студент уже отчислен. Причина ${this._exclude}`);
+      return false;
     }
     this._exclude = reason;
     return true;
