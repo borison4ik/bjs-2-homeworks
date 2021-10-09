@@ -47,17 +47,10 @@ class Triangle {
 function getTriangle(a, b, c) {
   let newTriangel = null;
 
-  // не работает так как функция validateCount по условию задачи возвращает ошибку вместо проброса
-  // как быть?
-  // try {
-  //   a = validateCount(a);
-  //   b = validateCount(b);
-  //   c = validateCount(c);
-  // } catch (err) {
-  //   return err;
-  // }
-
   try {
+    a = parseCount(a);
+    b = parseCount(b);
+    c = parseCount(c);
     newTriangel = new Triangle(a, b, c);
   } catch (err) {
     return {
