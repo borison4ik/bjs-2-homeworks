@@ -2,10 +2,9 @@
 
 function parseCount(count) {
   count = Number.parseInt(count);
-  let err = 'Невалидное значение';
 
   if (Number.isNaN(count)) {
-    throw new Error(err);
+    throw new Error('Невалидное значение');
   }
 
   return count;
@@ -13,12 +12,10 @@ function parseCount(count) {
 
 function validateCount(count) {
   try {
-    count = parseCount(count);
+    return (count = parseCount(count));
   } catch (err) {
     return err;
   }
-
-  return count;
 }
 
 // Задание №2
@@ -51,7 +48,7 @@ function getTriangle(a, b, c) {
     a = parseCount(a);
     b = parseCount(b);
     c = parseCount(c);
-    newTriangel = new Triangle(a, b, c);
+    return (newTriangel = new Triangle(a, b, c));
   } catch (err) {
     return {
       getPerimeter() {
@@ -63,6 +60,4 @@ function getTriangle(a, b, c) {
       },
     };
   }
-
-  return newTriangel;
 }
