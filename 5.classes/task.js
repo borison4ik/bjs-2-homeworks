@@ -140,11 +140,13 @@ class Student {
   }
 
   exclude(reason) {
-    if (!this._exclude) {
-      console.error(`Студент уже отчислен. Причина ${this._exclude}`);
+    if (this.excluded === undefined) {
+      this.excluded = reason;
+      this.ratingJournal = [];
+      return true;
+    } else {
+      console.error(`Студент уже отчислен. Причина ${this.excluded}`);
       return false;
     }
-    this._exclude = reason;
-    return true;
   }
 }
