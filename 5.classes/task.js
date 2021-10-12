@@ -80,6 +80,7 @@ class Student {
     this.gender = gender;
     this.age = age;
     this.ratingJournal = [];
+    this.excluded = false;
   }
 
   addMark(rating, subjectName) {
@@ -140,13 +141,12 @@ class Student {
   }
 
   exclude(reason) {
-    if (this.excluded === undefined) {
-      this.excluded = reason;
-      this.ratingJournal = [];
-      return true;
-    } else {
+    if (excluded) {
       console.error(`Студент уже отчислен. Причина ${this.excluded}`);
-      return false;
     }
+
+    this.excluded = reason;
+    this.ratingJournal = [];
+    return true;
   }
 }
