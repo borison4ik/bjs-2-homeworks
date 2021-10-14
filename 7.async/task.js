@@ -10,11 +10,14 @@ class AlarmClock {
       return true;
     }
 
+    const checkClock = (call) => {
+      call.time <= new Date().getTime() && call.callback();
+    };
+
     this.timerId = setInterval(() => {
-      this.alarmCollection
-        .filter((item) => item.time <= new Date().getTime())
-        .forEach((item) => item && item.callback());
+      this.alarmCollection.forEach(checkClock);
     }, 1000);
+
     console.log('Запуск таймера');
   }
 
@@ -39,7 +42,7 @@ class AlarmClock {
     this.alarmCollection = [];
   }
 
-  addClock(setHours, callback, alarmId) {
+  addClock(setTime, callback, alarmId) {
     if (!alarmId) {
       throw new Error('Звонок не добавлен! Не передан идентификатор создаваемого звонка.');
     }
@@ -52,7 +55,7 @@ class AlarmClock {
     }
 
     try {
-      this.alarmCollection.push(new Alarm(setHours, callback, alarmId));
+      this.alarmCollection.push(new Alarm(setTime, callback, alarmId));
     } catch (err) {
       console.error(err.message);
     }
@@ -61,7 +64,7 @@ class AlarmClock {
   removeClock(alarmId) {
     let length = this.alarmCollection.length;
     this.alarmCollection = this.alarmCollection.filter((item) => item.id !== alarmId);
-    return length > this.alarmCollection;
+    return length > this.alarmCollection.length;
   }
 
   getCurrentFormattedTime() {
@@ -77,8 +80,8 @@ class AlarmClock {
 }
 
 class Alarm {
-  constructor(setHours, callback, alarmId) {
-    let time = new Date().setHours(setHours.split(':')[0], setHours.split(':')[1], 0, 0);
+  constructor(setTime, callback, alarmId) {
+    let time = new Date().setHours(setTime.split(':')[0], setTime.split(':')[1], 0, 0);
     // if (time - new Date() <= 0) {
     //   throw new Error('нельзя создать будильник на прошедшее время');
     // } else {
@@ -87,6 +90,6 @@ class Alarm {
     this.time = time;
     this.callback = callback;
     this.id = alarmId;
-    this._timeString = setHours;
+    this._timeString = setTime;
   }
 }

@@ -9,15 +9,21 @@ const time2 = new Date(new Date().setMinutes(new Date().getMinutes() + 1))
   .split(':')
   .splice(0, 2)
   .join(':');
-console.log('time2', time2);
+console.log('time1', time1);
+const time3 = new Date(new Date().setMinutes(new Date().getMinutes() + 2))
+  .toLocaleTimeString()
+  .split(':')
+  .splice(0, 2)
+  .join(':');
+console.log('time3', time3);
 
-phoneClock.addClock(time1, () => console.log('будильник 1'), 1);
+phoneClock.addClock(time1, () => console.log(`Время ${time1} Звонит будильник 1`), 1);
 
 phoneClock.addClock(
   time2,
   () => {
-    console.log('будильник 2');
-    phoneClock.removeClock(2);
+    console.log(`Время ${time2} Звонит будильник 2`);
+    console.log('будильник 2 удален: ', phoneClock.removeClock(2));
   },
   2,
 );
@@ -25,9 +31,9 @@ phoneClock.addClock(
 phoneClock.printAlarms();
 
 phoneClock.addClock(
-  time2,
+  time3,
   () => {
-    console.log('будильник 3');
+    console.log(`Время ${time3} Звонит будильник 3`);
     phoneClock.clearAlarms();
     phoneClock.printAlarms();
   },
