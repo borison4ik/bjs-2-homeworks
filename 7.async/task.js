@@ -44,12 +44,12 @@ class AlarmClock {
 
   addClock(setTime, callback, alarmId) {
     if (!alarmId) {
-      throw new Error('Звонок не добавлен! Не передан идентификатор создаваемого звонка.');
+      throw new Error('Будильник не добавлен! Не передан идентификатор.');
     }
 
     if (this.alarmCollection.find((item) => item.id === alarmId)) {
       console.error(
-        `Звонок не добавлен! Звонок с id = ${alarmId} уже существует, измените значение`,
+        `Будильник не добавлен! Будильник с id = ${alarmId} уже существует, измените значение`,
       );
       return false;
     }
@@ -83,7 +83,7 @@ class Alarm {
   constructor(setTime, callback, alarmId) {
     let time = new Date().setHours(setTime.split(':')[0], setTime.split(':')[1], 0, 0);
     // if (time - new Date() <= 0) {
-    //   throw new Error('нельзя создать будильник на прошедшее время');
+    //   throw new Error('Нельзя создать будильник на прошедшее время');
     // } else {
     //   this.time = time;
     // }

@@ -9,7 +9,7 @@ const time2 = new Date(new Date().setMinutes(new Date().getMinutes() + 1))
   .split(':')
   .splice(0, 2)
   .join(':');
-console.log('time1', time1);
+console.log('time2', time2);
 const time3 = new Date(new Date().setMinutes(new Date().getMinutes() + 2))
   .toLocaleTimeString()
   .split(':')
